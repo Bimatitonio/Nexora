@@ -17,7 +17,7 @@
 <body class="antialiased">
 
   <!-- NAVBAR -->
-  <nav class="fixed top-0 w-full z-50 glass-card px-6 py-4 flex justify-between items-center">
+  <nav class="fixed top-0 w-full z-40 glass-card px-6 py-4 flex justify-between items-center">
     <div class="flex items-center space-x-2">
       <span class="text-2xl font-black tracking-wider text-white">NEX<span class="accent-color">ORA</span></span>
     </div>
@@ -25,13 +25,13 @@
   </nav>
 
   <!-- HERO SECTION -->
-  <section class="pt-32 pb-20 px-6 max-w-6xl mx-auto text-center flex flex-col items-center">
+  <section class="pt-32 pb-16 px-6 max-w-6xl mx-auto text-center flex flex-col items-center">
     <span class="text-xs uppercase tracking-widest font-semibold px-3 py-1 rounded-full border border-[#00e676] accent-color mb-4">All-in-One Fitness & Lifestyle</span>
     <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
       Train Smarter.<br/><span class="accent-color">Move Further.</span> Live Better.
     </h1>
     <p class="text-gray-400 text-lg max-w-2xl mb-8">
-      Aplikasi kebugaran terintegrasi yang membantu kamu mengacak aktivitas, nutrisi, tidur, hingga kesehatan mental dalam satu platform modern.
+      Aplikasi kebugaran terintegrasi yang membantu kamu melacak aktivitas, nutrisi, tidur, hingga kesehatan mental dalam satu platform modern.
     </p>
     
     <!-- CTA BUTTONS -->
@@ -53,79 +53,144 @@
     </div>
   </section>
 
-  <!-- KATEGORI OLAHRAGA -->
-  <section class="py-16 px-6 max-w-6xl mx-auto">
-    <h2 class="text-2xl font-bold text-center text-white mb-10">Pilihan Kategori Latihan</h2>
+  <!-- KATEGORI OLAHRAGA (INTERAKTIF) -->
+  <section class="py-12 px-6 max-w-6xl mx-auto">
+    <h2 class="text-2xl font-bold text-center text-white mb-2">Pilihan Kategori Latihan</h2>
+    <p class="text-center text-gray-400 text-sm mb-10">Klik pada kategori untuk melihat manfaat kesehatan & hipertrofi otot</p>
+    
     <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-      <div class="glass-card p-6 rounded-2xl text-center hover:border-[#00e676] transition">
+      <div onclick="openModal('gym')" class="glass-card p-6 rounded-2xl text-center hover:border-[#00e676] transition cursor-pointer transform hover:-translate-y-1">
         <i class="fas fa-dumbbell text-3xl accent-color mb-3"></i>
         <h3 class="font-bold text-white">Gym</h3>
-        <p class="text-xs text-gray-400 mt-1">Chest, Strength, Compound</p>
+        <p class="text-xs text-gray-400 mt-1">Latihan Beban & Otot</p>
+        <span class="inline-block mt-3 text-xs accent-color font-semibold">Lihat Detail &rarr;</span>
       </div>
-      <div class="glass-card p-6 rounded-2xl text-center hover:border-[#00e676] transition">
+
+      <div onclick="openModal('hiking')" class="glass-card p-6 rounded-2xl text-center hover:border-[#00e676] transition cursor-pointer transform hover:-translate-y-1">
         <i class="fas fa-mountain text-3xl accent-color mb-3"></i>
         <h3 class="font-bold text-white">Hiking</h3>
-        <p class="text-xs text-gray-400 mt-1">Peta, Elevasi & Jalur</p>
+        <p class="text-xs text-gray-400 mt-1">Stamina & Outdoor</p>
+        <span class="inline-block mt-3 text-xs accent-color font-semibold">Lihat Detail &rarr;</span>
       </div>
-      <div class="glass-card p-6 rounded-2xl text-center hover:border-[#00e676] transition">
+
+      <div onclick="openModal('walking')" class="glass-card p-6 rounded-2xl text-center hover:border-[#00e676] transition cursor-pointer transform hover:-translate-y-1">
         <i class="fas fa-walking text-3xl accent-color mb-3"></i>
         <h3 class="font-bold text-white">Walking</h3>
-        <p class="text-xs text-gray-400 mt-1">Hitung Langkah & Kalori</p>
+        <p class="text-xs text-gray-400 mt-1">Mobilitas & Jantung</p>
+        <span class="inline-block mt-3 text-xs accent-color font-semibold">Lihat Detail &rarr;</span>
       </div>
-      <div class="glass-card p-6 rounded-2xl text-center hover:border-[#00e676] transition">
+
+      <div onclick="openModal('running')" class="glass-card p-6 rounded-2xl text-center hover:border-[#00e676] transition cursor-pointer transform hover:-translate-y-1">
         <i class="fas fa-running text-3xl accent-color mb-3"></i>
         <h3 class="font-bold text-white">Running</h3>
-        <p class="text-xs text-gray-400 mt-1">GPS Tracking & Pace</p>
+        <p class="text-xs text-gray-400 mt-1">Kardio & Pembakaran</p>
+        <span class="inline-block mt-3 text-xs accent-color font-semibold">Lihat Detail &rarr;</span>
       </div>
-      <div class="glass-card p-6 rounded-2xl text-center hover:border-[#00e676] transition">
+
+      <div onclick="openModal('yoga')" class="glass-card p-6 rounded-2xl text-center hover:border-[#00e676] transition cursor-pointer transform hover:-translate-y-1">
         <i class="fas fa-spa text-3xl accent-color mb-3"></i>
         <h3 class="font-bold text-white">Yoga</h3>
-        <p class="text-xs text-gray-400 mt-1">Meditasi & Stress Relief</p>
+        <p class="text-xs text-gray-400 mt-1">Fleksibilitas & Mental</p>
+        <span class="inline-block mt-3 text-xs accent-color font-semibold">Lihat Detail &rarr;</span>
       </div>
     </div>
   </section>
 
-  <!-- FITUR UTAMA -->
-  <section class="py-16 px-6 max-w-6xl mx-auto">
-    <h2 class="text-2xl font-bold text-center text-white mb-10">Fitur Utama Nexora</h2>
-    <div class="grid md:grid-cols-3 gap-6">
-      <div class="glass-card p-6 rounded-2xl">
-        <i class="fas fa-play-circle text-2xl accent-color mb-4"></i>
-        <h3 class="text-lg font-bold text-white mb-2">Video Tutorial Latihan</h3>
-        <p class="text-sm text-gray-400">Instruksi langkah demi langkah beserta catatan beban & repetisi agar latihan lebih aman dan efektif.</p>
-      </div>
-      <div class="glass-card p-6 rounded-2xl">
-        <i class="fas fa-bullseye text-2xl accent-color mb-4"></i>
-        <h3 class="text-lg font-bold text-white mb-2">Target & Tantangan</h3>
-        <p class="text-sm text-gray-400">Ikuti tantangan harian/mingguan seperti 10,000 Steps, 5K Run, atau 7 Days Yoga untuk meraih reward & badge.</p>
-      </div>
-      <div class="glass-card p-6 rounded-2xl">
-        <i class="fas fa-calculator text-2xl accent-color mb-4"></i>
-        <h3 class="text-lg font-bold text-white mb-2">Kalkulator Nutrisi & Makro</h3>
-        <p class="text-sm text-gray-400">Hitung asupan kalori, protein, karbohidrat, dan lemak secara akurat sesuai program tubuhmu.</p>
-      </div>
-      <div class="glass-card p-6 rounded-2xl">
-        <i class="fas fa-chart-line text-2xl accent-color mb-4"></i>
-        <h3 class="text-lg font-bold text-white mb-2">Statistik Progress</h3>
-        <p class="text-sm text-gray-400">Pantau grafik berat badan, massa otot, lemak tubuh, serta tren kebugaran mingguan dan bulanan.</p>
-      </div>
-      <div class="glass-card p-6 rounded-2xl">
-        <i class="fas fa-map-marked-alt text-2xl accent-color mb-4"></i>
-        <h3 class="text-lg font-bold text-white mb-2">GPS & Route Tracking</h3>
-        <p class="text-sm text-gray-400">Integrasi peta presisi untuk merekam jalur lari, bersepeda, hingga rute pendakian gunung secara real-time.</p>
-      </div>
-      <div class="glass-card p-6 rounded-2xl">
-        <i class="fas fa-robot text-2xl accent-color mb-4"></i>
-        <h3 class="text-lg font-bold text-white mb-2">AI Personal Coach</h3>
-        <p class="text-sm text-gray-400">Dapatkan rekomendasi program latihan dan pola makan khusus yang disesuaikan dengan kondisi tubuhmu.</p>
+  <!-- MODAL POPUP (INFORMASI DETAIL) -->
+  <div id="infoModal" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 hidden">
+    <div class="glass-card bg-[#13161c] border border-gray-700 rounded-2xl max-w-lg w-full p-6 relative">
+      <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">&times;</button>
+      
+      <div id="modalContent">
+        <!-- Konten diisi secara dinamis via JavaScript -->
       </div>
     </div>
-  </section>
+  </div>
 
   <!-- FOOTER -->
-  <footer class="py-8 text-center text-gray-500 text-xs border-t border-gray-800">
+  <footer class="py-8 text-center text-gray-500 text-xs border-t border-gray-800 mt-12">
     <p>&copy; 2026 Nexora App. All rights reserved.</p>
   </footer>
 
+  <!-- SCRIPT INTERAKTIF -->
+  <script>
+    const categoryData = {
+      gym: {
+        title: "Gym & Strength Training",
+        icon: "fas fa-dumbbell",
+        description: "Latihan beban terstruktur difokuskan untuk stimulasi hipertrofi otot dan kekuatan fungsional tubuh.",
+        benefits: [
+          "<strong>Pertumbuhan Otot (Hipertrofi):</strong> Memicu sintesis protein otot melalui mekanisme <i>progressive overload</i>.",
+          "<strong>Kepadatan Tulang:</strong> Meningkatkan kepadatan mineral tulang dan mencegah risiko osteoporosis dini.",
+          "<strong>Metabolisme Tinggi:</strong> Otot yang lebih banyak membakar kalori lebih tinggi bahkan saat tubuh beristirahat (BMR)."
+        ]
+      },
+      hiking: {
+        title: "Hiking & Outdoor Trekking",
+        icon: "fas fa-mountain",
+        description: "Aktivitas ketahanan di alam bebas yang menguji kapasitas paru-paru serta kekuatan kaki pada medan bervariasi.",
+        benefits: [
+          "<strong>Penguatan Otot Bawah:</strong> Melatih secara intensif otot <i>quadriceps</i>, <i>hamstrings</i>, <i>glutes</i>, dan betis.",
+          "<strong>Kesehatan Kardiovaskular:</strong> Menurunkan tekanan darah dan meningkatkan VO2 Max secara maksimal.",
+          "<strong>Kesehatan Mental:</strong> Mengurangi hormon kortisol (stres) melalui paparan alam terbuka."
+        ]
+      },
+      walking: {
+        title: "Daily Walking",
+        icon: "fas fa-walking",
+        description: "Aktivitas dasar *low-impact* yang sangat ideal untuk menjaga konsistensi pergerakan tubuh harian.",
+        benefits: [
+          "<strong>Pemulihan Aktif:</strong> Membantu aliran darah mengantar nutrisi ke sel otot tanpa beban berlebih.",
+          "<strong>Pengontrol Gula Darah:</strong> Membantu sensitivitas insulin setelah makan.",
+          "<strong>Menjaga Sendi:</strong> Melumasi sendi lutut dan pinggul agar tetap fleksibel seiring bertambahnya usia."
+        ]
+      },
+      running: {
+        title: "Running & Sprint",
+        icon: "fas fa-running",
+        description: "Latihan kardio efisien untuk membakar lemak, meningkatkan stamina, dan kesehatan jantung.",
+        benefits: [
+          "<strong>Pembakaran Lemak Efektif:</strong> Membakar kalori dalam jumlah tinggi dalam waktu singkat.",
+          "<strong>Pelepasan Endorfin:</strong> Memicu fenomena <i>Runner's High</i> untuk mood yang lebih positif.",
+          "<strong>Ketahanan Otot:</strong> Memperkuat daya tahan otot inti (core) dan tubuh bagian bawah."
+        ]
+      },
+      yoga: {
+        title: "Yoga & Mindfulness",
+        icon: "fas fa-spa",
+        description: "Kombinasi peregangan dinamis, keseimbangan tubuh, dan kontrol pernapasan untuk relaksasi.",
+        benefits: [
+          "<strong>Fleksibilitas & Mobilitas:</strong> Mencegah cedera saat melakukan latihan beban berat di gym.",
+          "<strong>Keseimbangan Hormon:</strong> Menurunkan tingkat stres dan meningkatkan kualitas tidur malam.",
+          "<strong>Postur Tubuh:</strong> Memperbaiki postur tulang belakang akibat terlalu lama duduk."
+        ]
+      }
+    };
+
+    function openModal(category) {
+      const data = categoryData[category];
+      if(!data) return;
+
+      let benefitsHTML = data.benefits.map(b => `<li class="text-sm text-gray-300 mb-2 flex items-start"><i class="fas fa-check-circle accent-color mr-2 mt-1"></i><span>${b}</span></li>`).join('');
+
+      document.getElementById('modalContent').innerHTML = `
+        <div class="flex items-center space-x-3 mb-4">
+          <i class="${data.icon} text-3xl accent-color"></i>
+          <h3 class="text-xl font-bold text-white">${data.title}</h3>
+        </div>
+        <p class="text-sm text-gray-400 mb-4">${data.description}</p>
+        <div class="border-t border-gray-800 pt-4">
+          <h4 class="text-sm font-bold text-white mb-3">Manfaat Kesehatan & Otot:</h4>
+          <ul>${benefitsHTML}</ul>
+        </div>
+      `;
+
+      document.getElementById('infoModal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('infoModal').classList.add('hidden');
+    }
+  </script>
 </body>
 </html>

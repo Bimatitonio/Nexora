@@ -1,355 +1,1173 @@
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nexora - Train Smarter. Move Further. Live Better.</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-  
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#07110d" />
+  <meta name="description" content="Nexora adalah aplikasi fitness & activity tracker untuk Android dengan GPS tracking, running, walking, hiking, progress kesehatan, workout, dan sinkronisasi akun." />
+  <meta property="og:title" content="Nexora — Train Smarter. Move Further. Live Better." />
+  <meta property="og:description" content="Track aktivitas, GPS, pace, elevasi, progress kesehatan, workout, dan banyak lagi dalam satu aplikasi." />
+  <meta property="og:type" content="website" />
+  <title>Nexora — Train Smarter. Move Further. Live Better.</title>
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap');
-    
-    body { 
-      background-color: #08090b; 
-      color: #f3f4f6; 
-      font-family: 'Plus Jakarta Sans', sans-serif;
+    :root {
+      --bg: #060a08;
+      --bg-soft: #0a100d;
+      --card: rgba(15, 23, 19, .72);
+      --card-strong: #0f1713;
+      --line: rgba(255,255,255,.08);
+      --text: #f5f7f6;
+      --muted: #9aa7a0;
+      --green: #19f07c;
+      --green-2: #00c968;
+      --cyan: #46d7ff;
+      --gold: #ffcf66;
+      --danger: #ff7b7b;
+      --shadow: 0 24px 80px rgba(0,0,0,.38);
+      --radius: 26px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Manrope", system-ui, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 14% 0%, rgba(25,240,124,.12), transparent 30%),
+        radial-gradient(circle at 90% 10%, rgba(70,215,255,.08), transparent 28%),
+        linear-gradient(180deg, #07100c 0%, var(--bg) 34%, #050806 100%);
       overflow-x: hidden;
     }
-    
-    .accent-color { color: #00e676; }
-    .bg-accent { background-color: #00e676; }
-    .bg-accent:hover { background-color: #00c853; }
-    
-    .glass-card { 
-      background: rgba(18, 22, 29, 0.6); 
-      border: 1px solid rgba(255, 255, 255, 0.08); 
-      backdrop-filter: blur(16px); 
-    }
 
-    .glass-card-hover:hover {
-      border-color: rgba(0, 230, 118, 0.4);
-      box-shadow: 0 10px 30px -10px rgba(0, 230, 118, 0.2);
-    }
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+    img { max-width: 100%; display: block; }
+    ::selection { background: var(--green); color: #041008; }
 
-    .glow-effect {
-      position: absolute;
-      width: 300px;
-      height: 300px;
-      background: radial-gradient(circle, rgba(0,230,118,0.15) 0%, rgba(0,0,0,0) 70%);
-      top: 10%;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 0;
+    .container { width: min(1180px, calc(100% - 40px)); margin-inline: auto; }
+    .section { padding: 88px 0; position: relative; }
+    .muted { color: var(--muted); }
+    .accent { color: var(--green); }
+    .nowrap { white-space: nowrap; }
+
+    .noise {
+      position: fixed;
+      inset: 0;
       pointer-events: none;
+      opacity: .035;
+      z-index: 100;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
     }
 
-    /* Animasi Pop-up */
-    @keyframes modalFade {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
+    .nav {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 50;
+      border-bottom: 1px solid transparent;
+      transition: .25s ease;
     }
-    .animate-modal { animation: modalFade 0.25s ease-out forwards; }
-  </style>
+    .nav.scrolled {
+      background: rgba(6,10,8,.78);
+      border-color: var(--line);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .nav-inner {
+      height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 800;
+      letter-spacing: .16em;
+      font-size: 19px;
+    }
+    .brand-mark {
+      width: 38px; height: 38px;
+      border-radius: 13px;
+      display: grid; place-items: center;
+      color: #021109;
+      background: linear-gradient(135deg, var(--green), #3cf4b3);
+      box-shadow: 0 10px 32px rgba(25,240,124,.28);
+    }
+    .nav-links { display: flex; align-items: center; gap: 28px; font-size: 13px; color: #c5cec9; }
+    .nav-links a:hover { color: white; }
+    .nav-actions { display: flex; gap: 10px; align-items: center; }
+    .menu-btn { display: none; }
 
-  <script>
-    const categoryData = {
-      gym: {
-        title: "Gym & Strength Training",
-        icon: "fas fa-dumbbell",
-        img: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80",
-        description: "Program hipertrofi dan kekuatan fungsional yang dirancang khusus untuk memicu pertumbuhan otot secara konsisten.",
-        benefits: [
-          "<strong>Hipertrofi Efektif:</strong> Stimulasi serat otot melalui mekanisme <i>progressive overload</i>.",
-          "<strong>Densitas Tulang:</strong> Memperkuat struktur rangka dan mencegah pengeroposan tulang.",
-          "<strong>Metabolisme Tinggi:</strong> Pembakaran kalori pasif (BMR) meningkat seiring bertambahnya massa otot."
-        ]
-      },
-      hiking: {
-        title: "Hiking & Outdoor Trekking",
-        icon: "fas fa-mountain",
-        img: "https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=800&q=80",
-        description: "Navigasi jalur dan pemantauan elevasi real-time untuk petualangan alam terbuka yang aman dan terukur.",
-        benefits: [
-          "<strong>Otot Tubuh Bawah:</strong> Melatih secara intensif otot <i>quadriceps</i>, <i>glutes</i>, dan betis.",
-          "<strong>Kapasitas Paru-Paru:</strong> Meningkatkan VO2 Max secara alami pada medan menanjak.",
-          "<strong>Relaksasi Mental:</strong> Membantu menurunkan kadar kortisol melalui aktivitas di alam."
-        ]
-      },
-      walking: {
-        title: "Daily Walking",
-        icon: "fas fa-walking",
-        img: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&w=800&q=80",
-        description: "Pencatatan langkah harian presisi untuk mendukung gaya hidup aktif dan menjaga fleksibilitas sendi.",
-        benefits: [
-          "<strong>Pemulihan Otot:</strong> Mempercepat sirkulasi darah tanpa memberi beban berlebih pada sendi.",
-          "<strong>Kontrol Gula Darah:</strong> Membantu stabilitas gula darah dan sensitivitas insulin harian.",
-          "<strong>Kesehatan Jantung:</strong> Menjaga tekanan darah tetap dalam rentang optimal."
-        ]
-      },
-      running: {
-        title: "Running & Sprint",
-        icon: "fas fa-running",
-        img: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=800&q=80",
-        description: "Tracking GPS akurat untuk mengukur jarak, pace, zona detak jantung, dan pembakaran kalori.",
-        benefits: [
-          "<strong>Pembakaran Lemak:</strong> Efisiensi pembakaran energi kardiovaskular tinggi.",
-          "<strong>Pelepasan Endorfin:</strong> Meningkatkan mood dan konsentrasi melalui fenomena <i>Runner's High</i>.",
-          "<strong>Kekuatan Inti (Core):</strong> Memperkuat ketahanan fisik secara menyeluruh."
-        ]
-      },
-      yoga: {
-        title: "Yoga & Mindfulness",
-        icon: "fas fa-spa",
-        img: "https://images.unsplash.com/photo-1545205597-3d9d02c29597?auto=format&fit=crop&w=800&q=80",
-        description: "Sesi panduan peregangan dan meditasi untuk keseimbangan fisik serta ketenangan pikiran.",
-        benefits: [
-          "<strong>Mobilitas Sendi:</strong> Mencegah risiko cedera saat melakukan latihan berat.",
-          "<strong>Postur Tubuh:</strong> Memperbaiki kelengkungan tulang belakang dan keseimbangan.",
-          "<strong>Kualitas Tidur:</strong> Menenangkan sistem saraf pusat untuk pemulihan optimal."
-        ]
+    .btn {
+      border: 0;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 48px;
+      padding: 0 20px;
+      border-radius: 15px;
+      font-weight: 800;
+      transition: .22s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      color: #03110a;
+      background: linear-gradient(135deg, var(--green), #47f4aa);
+      box-shadow: 0 14px 34px rgba(25,240,124,.18);
+    }
+    .btn-primary:hover { box-shadow: 0 18px 44px rgba(25,240,124,.28); }
+    .btn-secondary {
+      color: #eaf0ed;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.035);
+    }
+    .btn-small { min-height: 42px; padding-inline: 16px; border-radius: 13px; font-size: 13px; }
+
+    .hero {
+      padding-top: 150px;
+      padding-bottom: 82px;
+      min-height: 790px;
+      display: flex;
+      align-items: center;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.03fr .97fr;
+      align-items: center;
+      gap: 72px;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      border: 1px solid rgba(25,240,124,.25);
+      background: rgba(25,240,124,.07);
+      color: #8affbd;
+      border-radius: 999px;
+      padding: 8px 12px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-size: 11px;
+      font-weight: 800;
+    }
+    .pulse {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 0 rgba(25,240,124,.5);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      70% { box-shadow: 0 0 0 11px rgba(25,240,124,0); }
+      100% { box-shadow: 0 0 0 0 rgba(25,240,124,0); }
+    }
+    h1 {
+      margin: 22px 0 22px;
+      font-size: clamp(46px, 6vw, 78px);
+      letter-spacing: -.055em;
+      line-height: .98;
+    }
+    .hero-gradient {
+      background: linear-gradient(90deg, #19f07c, #62f7bd 48%, #51d7ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero-copy {
+      max-width: 670px;
+      font-size: 17px;
+      line-height: 1.8;
+      color: #aab5af;
+    }
+    .hero-actions { margin-top: 30px; display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero-meta {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      color: #75827b;
+      font-size: 12px;
+    }
+    .hero-meta span { display: inline-flex; gap: 7px; align-items: center; }
+    .hero-meta i { color: var(--green); }
+
+    .phone-zone {
+      position: relative;
+      min-height: 590px;
+      display: grid;
+      place-items: center;
+    }
+    .phone-glow {
+      position: absolute;
+      width: 470px; height: 470px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(25,240,124,.17), transparent 66%);
+      filter: blur(5px);
+    }
+    .phone {
+      width: 315px;
+      height: 620px;
+      padding: 12px;
+      border-radius: 46px;
+      background: linear-gradient(150deg, rgba(255,255,255,.18), rgba(255,255,255,.04));
+      border: 1px solid rgba(255,255,255,.15);
+      box-shadow: var(--shadow);
+      position: relative;
+      z-index: 2;
+      transform: rotate(2deg);
+    }
+    .phone-screen {
+      height: 100%;
+      border-radius: 37px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 30% 4%, rgba(25,240,124,.14), transparent 25%),
+        #07110d;
+      border: 1px solid rgba(255,255,255,.06);
+      padding: 19px 16px;
+      display: flex;
+      flex-direction: column;
+    }
+    .phone-status {
+      display: flex; justify-content: space-between;
+      font-size: 10px; color: #b9c4be;
+      padding: 0 5px 12px;
+    }
+    .phone-head {
+      display: flex; align-items: center; justify-content: space-between;
+      margin: 8px 2px 14px;
+    }
+    .avatar {
+      width: 34px; height: 34px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--green), var(--cyan));
+      display: grid; place-items: center; color: #041009;
+    }
+    .live-badge {
+      font-size: 9px; font-weight: 800;
+      color: #8cffbd; border: 1px solid rgba(25,240,124,.22);
+      background: rgba(25,240,124,.08);
+      padding: 5px 8px; border-radius: 999px;
+    }
+    .route-card {
+      height: 240px;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(rgba(255,255,255,.02), rgba(255,255,255,.02)),
+        repeating-linear-gradient(0deg, transparent, transparent 22px, rgba(255,255,255,.028) 23px),
+        repeating-linear-gradient(90deg, transparent, transparent 22px, rgba(255,255,255,.028) 23px),
+        #0b1510;
+      position: relative;
+      overflow: hidden;
+    }
+    .route-line {
+      position: absolute;
+      inset: 35px 24px;
+      filter: drop-shadow(0 0 8px rgba(25,240,124,.35));
+    }
+    .route-line svg { width: 100%; height: 100%; overflow: visible; }
+    .route-dot {
+      position: absolute;
+      right: 51px; top: 61px;
+      width: 13px; height: 13px;
+      border-radius: 50%; background: var(--green);
+      border: 3px solid #0b1510;
+      box-shadow: 0 0 0 5px rgba(25,240,124,.13);
+    }
+    .phone-metrics {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 8px; margin-top: 10px;
+    }
+    .phone-metric {
+      background: rgba(255,255,255,.035);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 11px 9px;
+    }
+    .phone-metric small { color: #7d8982; font-size: 8px; display: block; margin-bottom: 4px; }
+    .phone-metric strong { font-size: 13px; }
+    .phone-track-btn {
+      margin-top: 10px;
+      border-radius: 16px;
+      padding: 13px;
+      text-align: center;
+      background: var(--green);
+      color: #041009;
+      font-size: 12px;
+      font-weight: 900;
+    }
+    .phone-nav {
+      margin-top: auto;
+      border-top: 1px solid var(--line);
+      display: flex; justify-content: space-around;
+      padding-top: 14px;
+      color: #69756f;
+    }
+    .phone-nav i:first-child { color: var(--green); }
+
+    .float-card {
+      position: absolute;
+      z-index: 3;
+      min-width: 165px;
+      background: rgba(13,20,16,.88);
+      border: 1px solid var(--line);
+      backdrop-filter: blur(14px);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 13px 14px;
+    }
+    .float-card.one { left: 0; top: 110px; }
+    .float-card.two { right: -12px; bottom: 100px; }
+    .float-label { font-size: 9px; color: #87938c; text-transform: uppercase; letter-spacing: .08em; }
+    .float-value { font-weight: 900; margin-top: 3px; }
+    .float-value.green { color: var(--green); }
+
+    .section-head {
+      max-width: 700px;
+      margin-bottom: 36px;
+    }
+    .section-head.center { margin-inline: auto; text-align: center; }
+    .section-kicker {
+      color: var(--green);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      font-weight: 900;
+      margin-bottom: 11px;
+    }
+    h2 {
+      font-size: clamp(32px, 4.3vw, 52px);
+      letter-spacing: -.04em;
+      line-height: 1.07;
+      margin: 0 0 14px;
+    }
+    .section-head p { color: var(--muted); line-height: 1.7; margin: 0; }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .feature-card, .activity-card, .roadmap-card, .download-card, .install-card {
+      border: 1px solid var(--line);
+      background: linear-gradient(145deg, rgba(255,255,255,.04), rgba(255,255,255,.018));
+      border-radius: var(--radius);
+      transition: .22s ease;
+    }
+    .feature-card:hover, .activity-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(25,240,124,.24);
+      background: linear-gradient(145deg, rgba(25,240,124,.06), rgba(255,255,255,.02));
+    }
+    .feature-card { padding: 25px; min-height: 210px; }
+    .icon-box {
+      width: 46px; height: 46px; border-radius: 15px;
+      display: grid; place-items: center;
+      color: var(--green);
+      border: 1px solid rgba(25,240,124,.19);
+      background: rgba(25,240,124,.07);
+      margin-bottom: 20px;
+    }
+    .feature-card h3 { margin: 0 0 10px; font-size: 17px; }
+    .feature-card p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.7; }
+
+    .activity-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+    }
+    .activity-card {
+      min-height: 235px;
+      padding: 20px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .activity-card::after {
+      content: "";
+      position: absolute;
+      width: 110px; height: 110px; border-radius: 50%;
+      right: -38px; bottom: -38px;
+      background: radial-gradient(circle, rgba(25,240,124,.12), transparent 68%);
+    }
+    .activity-icon {
+      width: 48px; height: 48px;
+      border-radius: 16px;
+      display: grid; place-items: center;
+      background: rgba(255,255,255,.045);
+      border: 1px solid var(--line);
+      font-size: 20px;
+      margin-bottom: 32px;
+    }
+    .activity-card h3 { margin: 0 0 6px; font-size: 17px; }
+    .activity-card p { color: var(--muted); font-size: 12px; line-height: 1.55; min-height: 56px; }
+    .card-link { color: var(--green); font-size: 12px; font-weight: 800; display: inline-flex; gap: 7px; align-items: center; }
+
+    .gps-section {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(90deg, rgba(25,240,124,.035), transparent 40%, rgba(70,215,255,.025));
+    }
+    .gps-grid { display: grid; grid-template-columns: .95fr 1.05fr; gap: 54px; align-items: center; }
+    .gps-list { display: grid; gap: 12px; margin-top: 24px; }
+    .gps-item {
+      display: flex; gap: 14px; align-items: flex-start;
+      padding: 15px 0;
+      border-bottom: 1px solid rgba(255,255,255,.055);
+    }
+    .gps-item:last-child { border-bottom: 0; }
+    .gps-item i { color: var(--green); margin-top: 4px; }
+    .gps-item strong { display: block; margin-bottom: 4px; }
+    .gps-item span { color: var(--muted); font-size: 13px; line-height: 1.6; }
+
+    .gps-visual {
+      min-height: 430px;
+      border-radius: 32px;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 70% 25%, rgba(25,240,124,.12), transparent 25%),
+        repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(255,255,255,.025) 28px),
+        repeating-linear-gradient(90deg, transparent, transparent 27px, rgba(255,255,255,.025) 28px),
+        #09120e;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .gps-chip {
+      position: absolute;
+      left: 20px; top: 20px;
+      border: 1px solid var(--line);
+      background: rgba(7,15,11,.8);
+      border-radius: 14px;
+      padding: 10px 12px;
+      font-size: 11px;
+      backdrop-filter: blur(10px);
+    }
+    .gps-chip strong { color: var(--green); }
+    .gps-stats {
+      position: absolute;
+      inset: auto 16px 16px;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+    }
+    .gps-stat {
+      border: 1px solid var(--line);
+      background: rgba(6,12,9,.82);
+      border-radius: 15px;
+      padding: 12px;
+      backdrop-filter: blur(12px);
+    }
+    .gps-stat small { display: block; color: #76827c; font-size: 8px; margin-bottom: 4px; }
+    .gps-stat strong { font-size: 13px; }
+    .map-route {
+      position: absolute;
+      inset: 54px 40px 100px;
+    }
+
+    .roadmap-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .roadmap-card { padding: 22px; }
+    .roadmap-top { display: flex; justify-content: space-between; gap: 10px; align-items: center; margin-bottom: 18px; }
+    .status {
+      border-radius: 999px;
+      padding: 6px 9px;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      font-weight: 900;
+    }
+    .status.live { color: #85ffb9; background: rgba(25,240,124,.08); border: 1px solid rgba(25,240,124,.18); }
+    .status.next { color: #9edfff; background: rgba(70,215,255,.07); border: 1px solid rgba(70,215,255,.16); }
+    .roadmap-card p { color: var(--muted); font-size: 13px; line-height: 1.7; margin-bottom: 0; }
+
+    .download-wrap {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+    .download-card {
+      padding: 34px;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 87% 10%, rgba(25,240,124,.18), transparent 30%),
+        linear-gradient(145deg, rgba(25,240,124,.055), rgba(255,255,255,.018));
+    }
+    .download-card::after {
+      content: "";
+      position: absolute;
+      width: 280px; height: 280px; border-radius: 50%;
+      border: 1px solid rgba(25,240,124,.12);
+      right: -105px; bottom: -150px;
+    }
+    .download-card h2 { max-width: 650px; }
+    .download-card p { max-width: 680px; color: var(--muted); line-height: 1.7; }
+    .release-row {
+      display: flex;
+      gap: 9px;
+      flex-wrap: wrap;
+      margin: 20px 0 26px;
+    }
+    .tag {
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.035);
+      padding: 7px 10px;
+      font-size: 10px;
+      color: #b5c0ba;
+    }
+    .install-card { padding: 28px; }
+    .steps { display: grid; gap: 18px; margin-top: 22px; }
+    .step { display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: start; }
+    .step-number {
+      width: 34px; height: 34px;
+      border-radius: 12px;
+      display: grid; place-items: center;
+      color: #03110a; background: var(--green);
+      font-weight: 900; font-size: 12px;
+    }
+    .step strong { display: block; margin-bottom: 3px; font-size: 13px; }
+    .step span { color: var(--muted); font-size: 11px; line-height: 1.55; }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 34px 0;
+      color: #748078;
+      font-size: 12px;
+    }
+    .footer-inner {
+      display: flex; align-items: center; justify-content: space-between; gap: 18px;
+    }
+    .footer-links { display: flex; gap: 18px; }
+
+    .modal {
+      position: fixed; inset: 0;
+      z-index: 80;
+      display: none;
+      place-items: center;
+      padding: 20px;
+      background: rgba(0,0,0,.72);
+      backdrop-filter: blur(8px);
+    }
+    .modal.open { display: grid; }
+    .modal-card {
+      width: min(540px, 100%);
+      border-radius: 28px;
+      border: 1px solid var(--line);
+      background: #0b120f;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      animation: modalIn .2s ease;
+    }
+    @keyframes modalIn { from { opacity: 0; transform: translateY(10px) scale(.98); } }
+    .modal-head {
+      padding: 24px 24px 20px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .modal-close {
+      width: 34px; height: 34px; border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.035);
+      color: white; cursor: pointer;
+    }
+    .modal-body { padding: 24px; }
+    .modal-body p { color: var(--muted); line-height: 1.7; margin-top: 0; }
+    .modal-points { display: grid; gap: 10px; }
+    .modal-point {
+      display: flex; gap: 10px; align-items: flex-start;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      padding: 12px;
+      color: #c8d1cc;
+      font-size: 12px;
+    }
+    .modal-point i { color: var(--green); margin-top: 3px; }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 980px) {
+      .hero-grid, .gps-grid, .download-wrap { grid-template-columns: 1fr; }
+      .hero { padding-top: 125px; }
+      .hero-grid { gap: 36px; }
+      .phone-zone { margin-top: 6px; }
+      .feature-grid { grid-template-columns: repeat(2, 1fr); }
+      .activity-grid { grid-template-columns: repeat(3, 1fr); }
+      .roadmap-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .menu-btn {
+        display: inline-grid;
+        place-items: center;
+        width: 42px; height: 42px;
+        border-radius: 13px;
+        border: 1px solid var(--line);
+        background: rgba(255,255,255,.035);
+        color: white;
       }
-    };
-
-    function openModal(category) {
-      const data = categoryData[category];
-      if(!data) return;
-
-      let benefitsHTML = data.benefits.map(b => `
-        <li class="text-sm text-gray-300 flex items-start space-x-3">
-          <i class="fas fa-check-circle accent-color mt-1"></i>
-          <span>${b}</span>
-        </li>`).join('');
-
-      document.getElementById('modalContent').innerHTML = `
-        <div class="relative h-48 rounded-t-2xl overflow-hidden mb-6">
-          <img src="${data.img}" class="w-full h-full object-cover" alt="${data.title}" />
-          <div class="absolute inset-0 bg-gradient-to-t from-[#0e1117] via-transparent to-transparent"></div>
-          <div class="absolute bottom-3 left-4 flex items-center space-x-3">
-            <div class="w-10 h-10 rounded-xl bg-accent/20 border border-[#00e676] flex items-center justify-center">
-              <i class="${data.icon} text-lg accent-color"></i>
-            </div>
-            <h3 class="text-xl font-bold text-white">${data.title}</h3>
-          </div>
-        </div>
-        <div class="px-6 pb-6">
-          <p class="text-sm text-gray-400 mb-6 leading-relaxed">${data.description}</p>
-          <div class="border-t border-gray-800 pt-4">
-            <h4 class="text-xs uppercase tracking-wider font-bold text-white mb-4 accent-color">Manfaat Kesehatan & Otot</h4>
-            <ul class="space-y-3">${benefitsHTML}</ul>
-          </div>
-        </div>
-      `;
-
-      document.getElementById('infoModal').classList.remove('hidden');
+      .mobile-menu {
+        display: none;
+        padding: 0 20px 18px;
+      }
+      .mobile-menu.open { display: grid; gap: 8px; }
+      .mobile-menu a {
+        padding: 12px 13px;
+        border-radius: 12px;
+        background: rgba(255,255,255,.03);
+        border: 1px solid var(--line);
+        font-size: 13px;
+        color: #cad3ce;
+      }
     }
-
-    function closeModal() {
-      document.getElementById('infoModal').classList.add('hidden');
+    @media (max-width: 650px) {
+      .container { width: min(100% - 28px, 1180px); }
+      .section { padding: 66px 0; }
+      .hero { min-height: auto; padding-top: 116px; }
+      h1 { font-size: 47px; }
+      .hero-copy { font-size: 15px; }
+      .hero-actions { display: grid; grid-template-columns: 1fr; }
+      .hero-actions .btn { width: 100%; }
+      .nav-actions .btn { display: none; }
+      .feature-grid, .activity-grid { grid-template-columns: 1fr; }
+      .phone { width: 292px; height: 585px; }
+      .float-card.one { left: -6px; top: 100px; transform: scale(.88); transform-origin: left center; }
+      .float-card.two { right: -5px; bottom: 75px; transform: scale(.88); transform-origin: right center; }
+      .gps-stats { grid-template-columns: repeat(2, 1fr); }
+      .gps-visual { min-height: 500px; }
+      .map-route { inset: 55px 20px 175px; }
+      .download-card, .install-card { padding: 24px; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
     }
-  </script>
+  </style>
 </head>
-<body class="antialiased selection:bg-[#00e676] selection:text-black">
 
-  <div class="glow-effect"></div>
+<body>
+  <div class="noise"></div>
 
-  <!-- NAVBAR -->
-  <nav class="fixed top-0 w-full z-40 glass-card px-6 py-4 flex justify-between items-center border-b border-white/5">
-    <div class="flex items-center space-x-2">
-      <span class="text-2xl font-black tracking-widest text-white">NEX<span class="accent-color">ORA</span></span>
-    </div>
-    <a href="#download" class="bg-accent text-black font-extrabold px-6 py-2.5 rounded-full transition duration-300 hover:scale-105 shadow-lg shadow-[#00e676]/20 text-xs tracking-wider uppercase">
-      Get App
-    </a>
-  </nav>
+  <header class="nav" id="nav">
+    <div class="container nav-inner">
+      <a href="#top" class="brand" aria-label="Nexora">
+        <span class="brand-mark"><i class="fa-solid fa-bolt"></i></span>
+        <span>NEX<span class="accent">ORA</span></span>
+      </a>
 
-  <!-- HERO SECTION -->
-  <section class="pt-36 pb-20 px-6 max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center relative z-10">
-    <div class="text-center md:text-left">
-      <span class="inline-flex items-center space-x-2 text-xs uppercase tracking-widest font-semibold px-4 py-1.5 rounded-full border border-[#00e676]/40 bg-[#00e676]/10 accent-color mb-6">
-        <span class="w-2 h-2 rounded-full bg-accent animate-ping"></span>
-        <span>Next-Gen Fitness App</span>
-      </span>
-      <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white mb-6 leading-tight tracking-tight">
-        Train Smarter.<br/>
-        <span class="accent-color bg-clip-text text-transparent bg-gradient-to-r from-[#00e676] to-emerald-400">Move Further.</span><br/>
-        Live Better.
-      </h1>
-      <p class="text-gray-400 text-base sm:text-lg mb-8 leading-relaxed max-w-xl">
-        Platform kebugaran terintegrasi untuk melacak aktivitas fisik, nutrisi, tidur, hingga kesehatan mental dalam satu aplikasi modern.
-      </p>
-      
-      <!-- CTA BUTTONS -->
-      <div id="download" class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-        <a href="#" class="bg-accent text-black font-extrabold px-8 py-4 rounded-2xl flex items-center justify-center space-x-3 shadow-xl shadow-[#00e676]/20 transition duration-300 hover:-translate-y-1 hover:bg-[#00c853]">
-          <i class="fab fa-android text-2xl"></i>
-          <div class="text-left">
-            <div class="text-[10px] uppercase font-bold tracking-wider opacity-80">Download APK</div>
-            <div class="text-base font-extrabold leading-none">Android Version</div>
-          </div>
+      <nav class="nav-links" aria-label="Navigasi utama">
+        <a href="#features">Fitur</a>
+        <a href="#activities">Aktivitas</a>
+        <a href="#gps">GPS</a>
+        <a href="#roadmap">Roadmap</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a class="btn btn-primary btn-small" href="https://github.com/Bimatitonio/Nexora/releases/download/v2.3.0-beta/Nexora-beta-release.apk">
+          <i class="fa-brands fa-android"></i>
+          Download APK
         </a>
-        <div class="glass-card text-gray-400 font-medium px-8 py-4 rounded-2xl flex items-center justify-center space-x-3 opacity-50 cursor-not-allowed">
-          <i class="fab fa-apple text-2xl"></i>
-          <div class="text-left">
-            <div class="text-[10px] uppercase font-bold tracking-wider">iOS Version</div>
-            <div class="text-base font-extrabold leading-none">Coming Soon</div>
-          </div>
-        </div>
+        <button class="menu-btn" id="menuBtn" aria-label="Buka menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
       </div>
     </div>
+    <div class="container mobile-menu" id="mobileMenu">
+      <a href="#features">Fitur</a>
+      <a href="#activities">Aktivitas</a>
+      <a href="#gps">GPS Tracking</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#download">Download</a>
+    </div>
+  </header>
 
-    <!-- MOCKUP FRAME INTERAKTIF -->
-    <div class="relative flex justify-center">
-      <div class="w-72 sm:w-80 h-[560px] glass-card rounded-[40px] p-4 border-2 border-white/10 shadow-2xl relative overflow-hidden flex flex-col justify-between">
-        <!-- Status Bar -->
-        <div class="flex justify-between items-center text-xs text-gray-400 px-2 pt-1">
-          <span>09:41</span>
-          <div class="flex space-x-1 items-center">
-            <i class="fas fa-signal text-[10px]"></i>
-            <i class="fas fa-wifi text-[10px]"></i>
-            <i class="fas fa-battery-full text-[10px]"></i>
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="reveal">
+          <div class="eyebrow">
+            <span class="pulse"></span>
+            Nexora 2.3.0 Beta • Android
+          </div>
+
+          <h1>
+            Train smarter.<br />
+            <span class="hero-gradient">Move further.</span><br />
+            Live better.
+          </h1>
+
+          <p class="hero-copy">
+            Nexora menyatukan activity tracking, progress kesehatan, workout, dan GPS untuk
+            walking, running, serta hiking. Rekam rute, jarak, pace, elevasi, breadcrumb,
+            dan riwayat aktivitas dalam satu aplikasi.
+          </p>
+
+          <div class="hero-actions">
+            <a href="https://github.com/Bimatitonio/Nexora/releases/download/v2.3.0-beta/Nexora-beta-release.apk" class="btn btn-primary">
+              <i class="fa-brands fa-android"></i>
+              Download Nexora APK
+            </a>
+            <a href="#features" class="btn btn-secondary">
+              Lihat Fitur
+              <i class="fa-solid fa-arrow-down"></i>
+            </a>
+          </div>
+
+          <div class="hero-meta">
+            <span><i class="fa-solid fa-shield-halved"></i> Email Auth</span>
+            <span><i class="fa-solid fa-location-dot"></i> GPS Tracking</span>
+            <span><i class="fa-solid fa-cloud-arrow-up"></i> Supabase Sync</span>
           </div>
         </div>
-        
-        <!-- App Header Mockup -->
-        <div class="my-4">
-          <div class="text-xs text-gray-400">Selamat Pagi,</div>
-          <div class="text-lg font-bold text-white flex justify-between items-center">
-            <span>Alex Rider</span>
-            <span class="text-xs px-2 py-0.5 rounded bg-accent/20 accent-color font-bold">PRO</span>
-          </div>
-        </div>
 
-        <!-- Metric Cards Mockup -->
-        <div class="space-y-3">
-          <div class="p-3 rounded-xl bg-white/5 border border-white/10 flex justify-between items-center">
-            <div>
-              <div class="text-[10px] text-gray-400">Langkah Harian</div>
-              <div class="text-base font-extrabold text-white">8,421 / <span class="text-gray-500 text-xs">10k</span></div>
+        <div class="phone-zone reveal">
+          <div class="phone-glow"></div>
+
+          <div class="float-card one">
+            <div class="float-label">Elevation gain</div>
+            <div class="float-value green">+186 m</div>
+          </div>
+
+          <div class="float-card two">
+            <div class="float-label">Average pace</div>
+            <div class="float-value">5:42 / km</div>
+          </div>
+
+          <div class="phone">
+            <div class="phone-screen">
+              <div class="phone-status">
+                <span>09:41</span>
+                <span><i class="fa-solid fa-signal"></i>&nbsp; <i class="fa-solid fa-wifi"></i>&nbsp; 93%</span>
+              </div>
+
+              <div class="phone-head">
+                <div>
+                  <div style="font-size:10px;color:#78857e;">Aktivitas sekarang</div>
+                  <strong>Morning Run</strong>
+                </div>
+                <div class="live-badge">● GPS LIVE</div>
+              </div>
+
+              <div class="route-card">
+                <div class="route-line">
+                  <svg viewBox="0 0 220 160" aria-hidden="true">
+                    <path d="M12 135 C45 118,35 86,72 85 C105 84,93 45,125 48 C159 52,168 22,208 18"
+                          fill="none" stroke="#19f07c" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="135" r="6" fill="#46d7ff"/>
+                    <circle cx="72" cy="85" r="4" fill="#19f07c"/>
+                    <circle cx="125" cy="48" r="4" fill="#19f07c"/>
+                  </svg>
+                </div>
+                <div class="route-dot"></div>
+              </div>
+
+              <div class="phone-metrics">
+                <div class="phone-metric">
+                  <small>DISTANCE</small>
+                  <strong>5.28 km</strong>
+                </div>
+                <div class="phone-metric">
+                  <small>DURATION</small>
+                  <strong>30:07</strong>
+                </div>
+                <div class="phone-metric">
+                  <small>PACE</small>
+                  <strong>5:42</strong>
+                </div>
+              </div>
+
+              <div class="phone-track-btn">
+                <i class="fa-solid fa-pause"></i>&nbsp;&nbsp; Pause Tracking
+              </div>
+
+              <div class="phone-nav">
+                <i class="fa-solid fa-house"></i>
+                <i class="fa-solid fa-chart-simple"></i>
+                <i class="fa-solid fa-location-dot"></i>
+                <i class="fa-solid fa-user"></i>
+              </div>
             </div>
-            <i class="fas fa-walking accent-color text-xl"></i>
           </div>
-          <div class="p-3 rounded-xl bg-white/5 border border-white/10 flex justify-between items-center">
-            <div>
-              <div class="text-[10px] text-gray-400">Kalori Terbakar</div>
-              <div class="text-base font-extrabold text-white">642 <span class="text-xs font-normal text-gray-400">kcal</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="container">
+        <div class="section-head center reveal">
+          <div class="section-kicker">Fitur Nexora</div>
+          <h2>Satu aplikasi untuk aktivitas, progress, dan kebiasaan sehat.</h2>
+          <p>
+            Fitur landing page ini disesuaikan dengan kemampuan Nexora saat ini,
+            tanpa menjual janji ajaib yang belum ada di APK.
+          </p>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card reveal">
+            <div class="icon-box"><i class="fa-solid fa-route"></i></div>
+            <h3>Live GPS Tracking</h3>
+            <p>Rekam rute walking, running, dan hiking dengan jarak, durasi, kecepatan, pace, serta jejak perjalanan.</p>
+          </article>
+
+          <article class="feature-card reveal">
+            <div class="icon-box"><i class="fa-solid fa-mountain-sun"></i></div>
+            <h3>Elevation & Backtrack</h3>
+            <p>Pantau elevation gain, breadcrumb, dan gunakan jejak perjalanan sebagai referensi untuk kembali ke titik awal.</p>
+          </article>
+
+          <article class="feature-card reveal">
+            <div class="icon-box"><i class="fa-solid fa-chart-line"></i></div>
+            <h3>Health Dashboard</h3>
+            <p>Lihat langkah, active minutes, kalori, air minum, tidur, streak, dan progress target harian.</p>
+          </article>
+
+          <article class="feature-card reveal">
+            <div class="icon-box"><i class="fa-solid fa-dumbbell"></i></div>
+            <h3>Workout & Yoga</h3>
+            <p>Program latihan, strength, mobility, yoga, dan rekomendasi aktivitas berdasarkan tujuan kebugaran.</p>
+          </article>
+
+          <article class="feature-card reveal">
+            <div class="icon-box"><i class="fa-solid fa-bullseye"></i></div>
+            <h3>Goals & Recommendations</h3>
+            <p>Target turun berat, naik massa, stamina, fleksibilitas, atau maintenance dengan rekomendasi jadwal mingguan.</p>
+          </article>
+
+          <article class="feature-card reveal">
+            <div class="icon-box"><i class="fa-solid fa-user-shield"></i></div>
+            <h3>Email Auth & Sync</h3>
+            <p>Daftar dan login dengan email, recovery password, serta sinkronisasi profil dan aktivitas melalui Supabase.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="activities">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="section-kicker">Activity Modes</div>
+          <h2>Pilih aktivitas yang sesuai dengan harimu.</h2>
+          <p>Klik kartu untuk melihat detail singkat. Semua aktivitas tidak perlu berpura-pura menjadi hal yang sama, untungnya.</p>
+        </div>
+
+        <div class="activity-grid">
+          <article class="activity-card reveal" data-activity="gym">
+            <div class="activity-icon"><i class="fa-solid fa-dumbbell"></i></div>
+            <h3>Gym</h3>
+            <p>Strength, full body, progressive training, dan pencatatan sesi latihan.</p>
+            <span class="card-link">Detail <i class="fa-solid fa-arrow-right"></i></span>
+          </article>
+
+          <article class="activity-card reveal" data-activity="hiking">
+            <div class="activity-icon"><i class="fa-solid fa-mountain"></i></div>
+            <h3>Hiking</h3>
+            <p>GPS trail, elevation gain, breadcrumb, jarak, dan referensi backtrack.</p>
+            <span class="card-link">Detail <i class="fa-solid fa-arrow-right"></i></span>
+          </article>
+
+          <article class="activity-card reveal" data-activity="walking">
+            <div class="activity-icon"><i class="fa-solid fa-person-walking"></i></div>
+            <h3>Walking</h3>
+            <p>Track rute, durasi, jarak, langkah, dan aktivitas ringan harian.</p>
+            <span class="card-link">Detail <i class="fa-solid fa-arrow-right"></i></span>
+          </article>
+
+          <article class="activity-card reveal" data-activity="running">
+            <div class="activity-icon"><i class="fa-solid fa-person-running"></i></div>
+            <h3>Running</h3>
+            <p>Rekam GPS, pace, speed, jarak, waktu, serta riwayat sesi lari.</p>
+            <span class="card-link">Detail <i class="fa-solid fa-arrow-right"></i></span>
+          </article>
+
+          <article class="activity-card reveal" data-activity="yoga">
+            <div class="activity-icon"><i class="fa-solid fa-spa"></i></div>
+            <h3>Yoga</h3>
+            <p>Mobility, flexibility, recovery, dan sesi yang mendukung konsistensi latihan.</p>
+            <span class="card-link">Detail <i class="fa-solid fa-arrow-right"></i></span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section gps-section" id="gps">
+      <div class="container gps-grid">
+        <div class="reveal">
+          <div class="section-kicker">GPS & Outdoor</div>
+          <h2>Jejakmu tidak hilang begitu saja di antara pepohonan.</h2>
+          <p class="muted" style="line-height:1.75;">
+            Nexora merekam titik GPS selama aktivitas dan mengubahnya menjadi rute yang dapat
+            dilihat kembali di history. Untuk hiking, breadcrumb dan backtrack membantu menjaga
+            referensi terhadap jalur yang sudah dilalui.
+          </p>
+
+          <div class="gps-list">
+            <div class="gps-item">
+              <i class="fa-solid fa-location-crosshairs"></i>
+              <div><strong>Live position & route</strong><span>Posisi dan polyline diperbarui selama tracking berlangsung.</span></div>
             </div>
-            <i class="fas fa-fire text-orange-500 text-xl"></i>
-          </div>
-          <div class="p-3 rounded-xl bg-white/5 border border-white/10 flex justify-between items-center">
-            <div>
-              <div class="text-[10px] text-gray-400">Durasi Aktif</div>
-              <div class="text-base font-extrabold text-white">48 <span class="text-xs font-normal text-gray-400">menit</span></div>
+            <div class="gps-item">
+              <i class="fa-solid fa-gauge-high"></i>
+              <div><strong>Pace, speed & distance</strong><span>Statistik utama perjalanan dihitung saat sesi berjalan.</span></div>
             </div>
-            <i class="fas fa-stopwatch text-cyan-400 text-xl"></i>
+            <div class="gps-item">
+              <i class="fa-solid fa-mountain"></i>
+              <div><strong>Elevation gain</strong><span>Catat total kenaikan elevasi untuk sesi outdoor.</span></div>
+            </div>
+            <div class="gps-item">
+              <i class="fa-solid fa-arrow-rotate-left"></i>
+              <div><strong>Breadcrumb & backtrack</strong><span>Gunakan rekaman jejak sebagai referensi untuk kembali melalui jalur sebelumnya.</span></div>
+            </div>
           </div>
         </div>
 
-        <!-- Navigation Mockup -->
-        <div class="pt-4 border-t border-white/10 flex justify-around text-gray-500 text-sm">
-          <i class="fas fa-home accent-color"></i>
-          <i class="fas fa-chart-line"></i>
-          <i class="fas fa-compass"></i>
-          <i class="fas fa-user"></i>
+        <div class="gps-visual reveal">
+          <div class="gps-chip"><strong>HIKING</strong> • Tracking aktif</div>
+
+          <div class="map-route">
+            <svg viewBox="0 0 520 280" width="100%" height="100%" aria-hidden="true">
+              <path d="M25 240 C80 224,82 163,145 166 C207 169,187 105,250 110 C319 115,300 48,368 58 C421 67,446 28,493 34"
+                    fill="none" stroke="rgba(70,215,255,.28)" stroke-width="12" stroke-linecap="round" />
+              <path d="M25 240 C80 224,82 163,145 166 C207 169,187 105,250 110 C319 115,300 48,368 58 C421 67,446 28,493 34"
+                    fill="none" stroke="#19f07c" stroke-width="5.5" stroke-linecap="round" />
+              <g fill="#19f07c">
+                <circle cx="145" cy="166" r="5"/>
+                <circle cx="250" cy="110" r="5"/>
+                <circle cx="368" cy="58" r="5"/>
+              </g>
+              <circle cx="25" cy="240" r="9" fill="#46d7ff"/>
+              <circle cx="493" cy="34" r="11" fill="#19f07c"/>
+            </svg>
+          </div>
+
+          <div class="gps-stats">
+            <div class="gps-stat"><small>DISTANCE</small><strong>7.84 km</strong></div>
+            <div class="gps-stat"><small>DURATION</small><strong>1:42:18</strong></div>
+            <div class="gps-stat"><small>ELEVATION</small><strong>+412 m</strong></div>
+            <div class="gps-stat"><small>AVG SPEED</small><strong>4.6 km/h</strong></div>
+          </div>
         </div>
       </div>
+    </section>
+
+    <section class="section" id="roadmap">
+      <div class="container">
+        <div class="section-head center reveal">
+          <div class="section-kicker">Status Fitur</div>
+          <h2>Yang sudah ada dan yang sedang menuju Nexora.</h2>
+          <p>Supaya landing page tidak menjanjikan fitur yang baru hidup di alam imajinasi.</p>
+        </div>
+
+        <div class="roadmap-grid">
+          <article class="roadmap-card reveal">
+            <div class="roadmap-top">
+              <strong>GPS Activity Tracking</strong>
+              <span class="status live">Available</span>
+            </div>
+            <p>Walking, running, hiking, route polyline, pace, speed, elevation, breadcrumb, dan activity history.</p>
+          </article>
+
+          <article class="roadmap-card reveal">
+            <div class="roadmap-top">
+              <strong>Offline Maps per Area</strong>
+              <span class="status next">Next</span>
+            </div>
+            <p>Rencana berikutnya adalah download area tertentu untuk outdoor use, bukan mengunduh seluruh planet ke storage pengguna.</p>
+          </article>
+
+          <article class="roadmap-card reveal">
+            <div class="roadmap-top">
+              <strong>Background GPS</strong>
+              <span class="status next">Next</span>
+            </div>
+            <p>Tracking lebih tahan saat layar mati atau aplikasi diminimalkan dengan konfigurasi background location Android/iOS.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="download">
+      <div class="container download-wrap">
+        <div class="download-card reveal">
+          <div class="section-kicker">Download Beta</div>
+          <h2>Pasang Nexora di Android dan mulai testing.</h2>
+          <p>
+            Versi beta saat ini didistribusikan melalui GitHub Releases.
+            APK dapat diunduh langsung dari tombol di bawah dan dipasang manual di perangkat Android.
+          </p>
+
+          <div class="release-row">
+            <span class="tag"><i class="fa-brands fa-android"></i>&nbsp; Android APK</span>
+            <span class="tag">v2.3.0 Beta</span>
+            <span class="tag">GitHub Release</span>
+          </div>
+
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <a href="https://github.com/Bimatitonio/Nexora/releases/download/v2.3.0-beta/Nexora-beta-release.apk" class="btn btn-primary">
+              <i class="fa-solid fa-download"></i>
+              Download APK
+            </a>
+            <a href="https://github.com/Bimatitonio/Nexora/releases/tag/v2.3.0-beta" class="btn btn-secondary" target="_blank" rel="noopener">
+              Lihat Release
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+        </div>
+
+        <aside class="install-card reveal">
+          <div class="section-kicker">Cara Install</div>
+          <h3 style="font-size:22px;margin:0;">3 langkah, karena 17 langkah itu kejahatan.</h3>
+
+          <div class="steps">
+            <div class="step">
+              <div class="step-number">1</div>
+              <div><strong>Download APK</strong><span>Tekan tombol Download APK pada halaman ini.</span></div>
+            </div>
+            <div class="step">
+              <div class="step-number">2</div>
+              <div><strong>Izinkan instalasi</strong><span>Android mungkin meminta izin “Install unknown apps” untuk browser/file manager.</span></div>
+            </div>
+            <div class="step">
+              <div class="step-number">3</div>
+              <div><strong>Install & buka Nexora</strong><span>Daftar akun, verifikasi email, lalu mulai mencoba fitur beta.</span></div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>
+        <strong style="color:#dbe4df;">NEX<span class="accent">ORA</span></strong><br />
+        <span>Train Smarter. Move Further. Live Better.</span>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/Bimatitonio/Nexora" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> GitHub</a>
+        <a href="#download">Download</a>
+      </div>
+      <span>© 2026 Nexora.</span>
     </div>
-  </section>
+  </footer>
 
-  <!-- KATEGORI OLAHRAGA -->
-  <section class="py-16 px-6 max-w-6xl mx-auto relative z-10">
-    <div class="text-center mb-12">
-      <h2 class="text-3xl font-extrabold text-white mb-3">Pilihan Kategori Latihan</h2>
-      <p class="text-gray-400 text-sm max-w-lg mx-auto">Klik pada kartu kategori di bawah untuk mempelajari penjelasan fisiologis & manfaat pertumbuhan otot.</p>
-    </div>
-    
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-5">
-      
-      <!-- Card Gym -->
-      <div onclick="openModal('gym')" class="glass-card glass-card-hover rounded-2xl overflow-hidden cursor-pointer transition duration-300 transform hover:-translate-y-2 group">
-        <div class="h-32 overflow-hidden relative">
-          <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Gym" />
-          <div class="absolute inset-0 bg-gradient-to-t from-[#0e1117] via-transparent to-transparent"></div>
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div>
+          <div class="section-kicker" style="margin-bottom:6px;">Activity Detail</div>
+          <strong id="modalTitle" style="font-size:20px;"></strong>
         </div>
-        <div class="p-4 text-center">
-          <h3 class="font-bold text-white mb-1">Gym</h3>
-          <p class="text-[11px] text-gray-400 mb-3">Latihan Beban & Otot</p>
-          <span class="text-[11px] accent-color font-semibold group-hover:underline">Detail Info &rarr;</span>
-        </div>
+        <button class="modal-close" id="modalClose" aria-label="Tutup">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
       </div>
-
-      <!-- Card Hiking -->
-      <div onclick="openModal('hiking')" class="glass-card glass-card-hover rounded-2xl overflow-hidden cursor-pointer transition duration-300 transform hover:-translate-y-2 group">
-        <div class="h-32 overflow-hidden relative">
-          <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Hiking" />
-          <div class="absolute inset-0 bg-gradient-to-t from-[#0e1117] via-transparent to-transparent"></div>
-        </div>
-        <div class="p-4 text-center">
-          <h3 class="font-bold text-white mb-1">Hiking</h3>
-          <p class="text-[11px] text-gray-400 mb-3">Stamina & Outdoor</p>
-          <span class="text-[11px] accent-color font-semibold group-hover:underline">Detail Info &rarr;</span>
-        </div>
+      <div class="modal-body">
+        <p id="modalDescription"></p>
+        <div class="modal-points" id="modalPoints"></div>
       </div>
-
-      <!-- Card Walking -->
-      <div onclick="openModal('walking')" class="glass-card glass-card-hover rounded-2xl overflow-hidden cursor-pointer transition duration-300 transform hover:-translate-y-2 group">
-        <div class="h-32 overflow-hidden relative">
-          <img src="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Walking" />
-          <div class="absolute inset-0 bg-gradient-to-t from-[#0e1117] via-transparent to-transparent"></div>
-        </div>
-        <div class="p-4 text-center">
-          <h3 class="font-bold text-white mb-1">Walking</h3>
-          <p class="text-[11px] text-gray-400 mb-3">Mobilitas & Jantung</p>
-          <span class="text-[11px] accent-color font-semibold group-hover:underline">Detail Info &rarr;</span>
-        </div>
-      </div>
-
-      <!-- Card Running -->
-      <div onclick="openModal('running')" class="glass-card glass-card-hover rounded-2xl overflow-hidden cursor-pointer transition duration-300 transform hover:-translate-y-2 group">
-        <div class="h-32 overflow-hidden relative">
-          <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Running" />
-          <div class="absolute inset-0 bg-gradient-to-t from-[#0e1117] via-transparent to-transparent"></div>
-        </div>
-        <div class="p-4 text-center">
-          <h3 class="font-bold text-white mb-1">Running</h3>
-          <p class="text-[11px] text-gray-400 mb-3">Kardio & Pembakaran</p>
-          <span class="text-[11px] accent-color font-semibold group-hover:underline">Detail Info &rarr;</span>
-        </div>
-      </div>
-
-      <!-- Card Yoga -->
-      <div onclick="openModal('yoga')" class="glass-card glass-card-hover rounded-2xl overflow-hidden cursor-pointer transition duration-300 transform hover:-translate-y-2 group">
-        <div class="h-32 overflow-hidden relative">
-          <img src="https://images.unsplash.com/photo-1545205597-3d9d02c29597?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Yoga" />
-          <div class="absolute inset-0 bg-gradient-to-t from-[#0e1117] via-transparent to-transparent"></div>
-        </div>
-        <div class="p-4 text-center">
-          <h3 class="font-bold text-white mb-1">Yoga</h3>
-          <p class="text-[11px] text-gray-400 mb-3">Fleksibilitas & Mental</p>
-          <span class="text-[11px] accent-color font-semibold group-hover:underline">Detail Info &rarr;</span>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- MODAL POPUP INTERAKTIF -->
-  <div id="infoModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-    <div class="absolute inset-0 z-0" onclick="closeModal()"></div>
-    
-    <div class="glass-card bg-[#0e1117] border border-gray-700/60 rounded-2xl max-w-lg w-full relative z-10 animate-modal overflow-hidden">
-      <button onclick="closeModal()" class="absolute top-4 right-4 z-20 w-8 h-8 rounded-full bg-black/50 text-gray-300 hover:text-white flex items-center justify-center transition">
-        &times;
-      </button>
-      
-      <div id="modalContent"></div>
     </div>
   </div>
 
-  <!-- FOOTER -->
-  <footer class="py-8 text-center text-gray-500 text-xs border-t border-gray-800/80 mt-16 relative z-10">
-    <p>&copy; 2026 Nexora App. Designed for Peak Performance.</p>
-  </footer>
+  <script>
+    const activityData = {
+      gym: {
+        title: "Gym & Strength",
+        description: "Latihan kekuatan untuk mendukung pembentukan otot, kebugaran fungsional, dan konsistensi program.",
+        points: ["Workout strength & full body", "Progress aktivitas tersimpan", "Cocok untuk target gain atau maintenance"]
+      },
+      hiking: {
+        title: "Hiking & Outdoor",
+        description: "Mode outdoor dengan fokus pada jejak perjalanan dan statistik medan.",
+        points: ["GPS route & distance", "Elevation gain", "Breadcrumb dan referensi backtrack"]
+      },
+      walking: {
+        title: "Walking",
+        description: "Aktivitas rendah dampak untuk mobilitas harian dan konsistensi langkah.",
+        points: ["Jarak dan durasi", "Langkah dan activity minutes", "Riwayat aktivitas"]
+      },
+      running: {
+        title: "Running",
+        description: "Tracking lari dengan statistik utama untuk memahami performa sesi.",
+        points: ["GPS live route", "Pace dan average speed", "Distance, duration, calories"]
+      },
+      yoga: {
+        title: "Yoga & Mobility",
+        description: "Sesi fleksibilitas dan mobility untuk melengkapi strength dan cardio.",
+        points: ["Mobility & flexibility", "Recovery", "Mendukung jadwal latihan mingguan"]
+      }
+    };
 
+    const nav = document.getElementById("nav");
+    const menuBtn = document.getElementById("menuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+    const modal = document.getElementById("modal");
+    const modalClose = document.getElementById("modalClose");
+
+    window.addEventListener("scroll", () => {
+      nav.classList.toggle("scrolled", window.scrollY > 12);
+    });
+
+    menuBtn?.addEventListener("click", () => {
+      mobileMenu.classList.toggle("open");
+    });
+
+    document.querySelectorAll("#mobileMenu a").forEach(link => {
+      link.addEventListener("click", () => mobileMenu.classList.remove("open"));
+    });
+
+    document.querySelectorAll("[data-activity]").forEach(card => {
+      card.addEventListener("click", () => {
+        const data = activityData[card.dataset.activity];
+        if (!data) return;
+        document.getElementById("modalTitle").textContent = data.title;
+        document.getElementById("modalDescription").textContent = data.description;
+        document.getElementById("modalPoints").innerHTML = data.points.map(point =>
+          `<div class="modal-point"><i class="fa-solid fa-circle-check"></i><span>${point}</span></div>`
+        ).join("");
+        modal.classList.add("open");
+        modal.setAttribute("aria-hidden", "false");
+      });
+    });
+
+    function closeModal() {
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+    }
+
+    modalClose.addEventListener("click", closeModal);
+    modal.addEventListener("click", event => {
+      if (event.target === modal) closeModal();
+    });
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") closeModal();
+    });
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: .12 });
+
+    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>

@@ -1,168 +1,112 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nexora - Train Smarter. Move Further. Live Better.</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  
   <style>
-    body { background-color: #0d0f12; color: #f3f4f6; font-family: system-ui, -apple-system, sans-serif; }
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap');
+    
+    body { 
+      background-color: #08090b; 
+      color: #f3f4f6; 
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+    }
+    
     .accent-color { color: #00e676; }
     .bg-accent { background-color: #00e676; }
     .bg-accent:hover { background-color: #00c853; }
-    .glass-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); backdrop-filter: blur(12px); }
+    
+    .glass-card { 
+      background: rgba(18, 22, 29, 0.6); 
+      border: 1px solid rgba(255, 255, 255, 0.08); 
+      backdrop-filter: blur(16px); 
+    }
+
+    .glass-card-hover:hover {
+      border-color: rgba(0, 230, 118, 0.4);
+      box-shadow: 0 10px 30px -10px rgba(0, 230, 118, 0.2);
+    }
+
+    .glow-effect {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(0,230,118,0.15) 0%, rgba(0,0,0,0) 70%);
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Animasi Pop-up */
+    @keyframes modalFade {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .animate-modal { animation: modalFade 0.25s ease-out forwards; }
   </style>
-</head>
-<body class="antialiased">
 
-  <!-- NAVBAR -->
-  <nav class="fixed top-0 w-full z-40 glass-card px-6 py-4 flex justify-between items-center">
-    <div class="flex items-center space-x-2">
-      <span class="text-2xl font-black tracking-wider text-white">NEX<span class="accent-color">ORA</span></span>
-    </div>
-    <a href="#download" class="bg-accent text-black font-bold px-5 py-2 rounded-full transition text-sm">Get App</a>
-  </nav>
-
-  <!-- HERO SECTION -->
-  <section class="pt-32 pb-16 px-6 max-w-6xl mx-auto text-center flex flex-col items-center">
-    <span class="text-xs uppercase tracking-widest font-semibold px-3 py-1 rounded-full border border-[#00e676] accent-color mb-4">All-in-One Fitness & Lifestyle</span>
-    <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
-      Train Smarter.<br/><span class="accent-color">Move Further.</span> Live Better.
-    </h1>
-    <p class="text-gray-400 text-lg max-w-2xl mb-8">
-      Aplikasi kebugaran terintegrasi yang membantu kamu melacak aktivitas, nutrisi, tidur, hingga kesehatan mental dalam satu platform modern.
-    </p>
-    
-    <!-- CTA BUTTONS -->
-    <div id="download" class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-      <a href="#" class="bg-accent text-black font-extrabold px-8 py-4 rounded-xl flex items-center justify-center space-x-3 shadow-lg shadow-[#00e676]/20 transition transform hover:-translate-y-1">
-        <i class="fab fa-android text-2xl"></i>
-        <div class="text-left">
-          <div class="text-xs uppercase font-medium">Download for</div>
-          <div class="text-base font-bold leading-none">Android APK</div>
-        </div>
-      </a>
-      <div class="glass-card text-gray-400 font-medium px-8 py-4 rounded-xl flex items-center justify-center space-x-3 cursor-not-allowed opacity-60">
-        <i class="fab fa-apple text-2xl"></i>
-        <div class="text-left">
-          <div class="text-xs uppercase">iOS Version</div>
-          <div class="text-base font-bold leading-none">Coming Soon</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- KATEGORI OLAHRAGA (INTERAKTIF) -->
-  <section class="py-12 px-6 max-w-6xl mx-auto">
-    <h2 class="text-2xl font-bold text-center text-white mb-2">Pilihan Kategori Latihan</h2>
-    <p class="text-center text-gray-400 text-sm mb-10">Klik pada kategori untuk melihat manfaat kesehatan & hipertrofi otot</p>
-    
-    <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-      <div onclick="openModal('gym')" class="glass-card p-6 rounded-2xl text-center hover:border-[#00e676] transition cursor-pointer transform hover:-translate-y-1">
-        <i class="fas fa-dumbbell text-3xl accent-color mb-3"></i>
-        <h3 class="font-bold text-white">Gym</h3>
-        <p class="text-xs text-gray-400 mt-1">Latihan Beban & Otot</p>
-        <span class="inline-block mt-3 text-xs accent-color font-semibold">Lihat Detail &rarr;</span>
-      </div>
-
-      <div onclick="openModal('hiking')" class="glass-card p-6 rounded-2xl text-center hover:border-[#00e676] transition cursor-pointer transform hover:-translate-y-1">
-        <i class="fas fa-mountain text-3xl accent-color mb-3"></i>
-        <h3 class="font-bold text-white">Hiking</h3>
-        <p class="text-xs text-gray-400 mt-1">Stamina & Outdoor</p>
-        <span class="inline-block mt-3 text-xs accent-color font-semibold">Lihat Detail &rarr;</span>
-      </div>
-
-      <div onclick="openModal('walking')" class="glass-card p-6 rounded-2xl text-center hover:border-[#00e676] transition cursor-pointer transform hover:-translate-y-1">
-        <i class="fas fa-walking text-3xl accent-color mb-3"></i>
-        <h3 class="font-bold text-white">Walking</h3>
-        <p class="text-xs text-gray-400 mt-1">Mobilitas & Jantung</p>
-        <span class="inline-block mt-3 text-xs accent-color font-semibold">Lihat Detail &rarr;</span>
-      </div>
-
-      <div onclick="openModal('running')" class="glass-card p-6 rounded-2xl text-center hover:border-[#00e676] transition cursor-pointer transform hover:-translate-y-1">
-        <i class="fas fa-running text-3xl accent-color mb-3"></i>
-        <h3 class="font-bold text-white">Running</h3>
-        <p class="text-xs text-gray-400 mt-1">Kardio & Pembakaran</p>
-        <span class="inline-block mt-3 text-xs accent-color font-semibold">Lihat Detail &rarr;</span>
-      </div>
-
-      <div onclick="openModal('yoga')" class="glass-card p-6 rounded-2xl text-center hover:border-[#00e676] transition cursor-pointer transform hover:-translate-y-1">
-        <i class="fas fa-spa text-3xl accent-color mb-3"></i>
-        <h3 class="font-bold text-white">Yoga</h3>
-        <p class="text-xs text-gray-400 mt-1">Fleksibilitas & Mental</p>
-        <span class="inline-block mt-3 text-xs accent-color font-semibold">Lihat Detail &rarr;</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- MODAL POPUP (INFORMASI DETAIL) -->
-  <div id="infoModal" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 hidden">
-    <div class="glass-card bg-[#13161c] border border-gray-700 rounded-2xl max-w-lg w-full p-6 relative">
-      <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">&times;</button>
-      
-      <div id="modalContent">
-        <!-- Konten diisi secara dinamis via JavaScript -->
-      </div>
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <footer class="py-8 text-center text-gray-500 text-xs border-t border-gray-800 mt-12">
-    <p>&copy; 2026 Nexora App. All rights reserved.</p>
-  </footer>
-
-  <!-- SCRIPT INTERAKTIF -->
   <script>
     const categoryData = {
       gym: {
         title: "Gym & Strength Training",
         icon: "fas fa-dumbbell",
-        description: "Latihan beban terstruktur difokuskan untuk stimulasi hipertrofi otot dan kekuatan fungsional tubuh.",
+        img: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80",
+        description: "Program hipertrofi dan kekuatan fungsional yang dirancang khusus untuk memicu pertumbuhan otot secara konsisten.",
         benefits: [
-          "<strong>Pertumbuhan Otot (Hipertrofi):</strong> Memicu sintesis protein otot melalui mekanisme <i>progressive overload</i>.",
-          "<strong>Kepadatan Tulang:</strong> Meningkatkan kepadatan mineral tulang dan mencegah risiko osteoporosis dini.",
-          "<strong>Metabolisme Tinggi:</strong> Otot yang lebih banyak membakar kalori lebih tinggi bahkan saat tubuh beristirahat (BMR)."
+          "<strong>Hipertrofi Efektif:</strong> Stimulasi serat otot melalui mekanisme <i>progressive overload</i>.",
+          "<strong>Densitas Tulang:</strong> Memperkuat struktur rangka dan mencegah pengeroposan tulang.",
+          "<strong>Metabolisme Tinggi:</strong> Pembakaran kalori pasif (BMR) meningkat seiring bertambahnya massa otot."
         ]
       },
       hiking: {
         title: "Hiking & Outdoor Trekking",
         icon: "fas fa-mountain",
-        description: "Aktivitas ketahanan di alam bebas yang menguji kapasitas paru-paru serta kekuatan kaki pada medan bervariasi.",
+        img: "https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=800&q=80",
+        description: "Navigasi jalur dan pemantauan elevasi real-time untuk petualangan alam terbuka yang aman dan terukur.",
         benefits: [
-          "<strong>Penguatan Otot Bawah:</strong> Melatih secara intensif otot <i>quadriceps</i>, <i>hamstrings</i>, <i>glutes</i>, dan betis.",
-          "<strong>Kesehatan Kardiovaskular:</strong> Menurunkan tekanan darah dan meningkatkan VO2 Max secara maksimal.",
-          "<strong>Kesehatan Mental:</strong> Mengurangi hormon kortisol (stres) melalui paparan alam terbuka."
+          "<strong>Otot Tubuh Bawah:</strong> Melatih secara intensif otot <i>quadriceps</i>, <i>glutes</i>, dan betis.",
+          "<strong>Kapasitas Paru-Paru:</strong> Meningkatkan VO2 Max secara alami pada medan menanjak.",
+          "<strong>Relaksasi Mental:</strong> Membantu menurunkan kadar kortisol melalui aktivitas di alam."
         ]
       },
       walking: {
         title: "Daily Walking",
         icon: "fas fa-walking",
-        description: "Aktivitas dasar *low-impact* yang sangat ideal untuk menjaga konsistensi pergerakan tubuh harian.",
+        img: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&w=800&q=80",
+        description: "Pencatatan langkah harian presisi untuk mendukung gaya hidup aktif dan menjaga fleksibilitas sendi.",
         benefits: [
-          "<strong>Pemulihan Aktif:</strong> Membantu aliran darah mengantar nutrisi ke sel otot tanpa beban berlebih.",
-          "<strong>Pengontrol Gula Darah:</strong> Membantu sensitivitas insulin setelah makan.",
-          "<strong>Menjaga Sendi:</strong> Melumasi sendi lutut dan pinggul agar tetap fleksibel seiring bertambahnya usia."
+          "<strong>Pemulihan Otot:</strong> Mempercepat sirkulasi darah tanpa memberi beban berlebih pada sendi.",
+          "<strong>Kontrol Gula Darah:</strong> Membantu stabilitas gula darah dan sensitivitas insulin harian.",
+          "<strong>Kesehatan Jantung:</strong> Menjaga tekanan darah tetap dalam rentang optimal."
         ]
       },
       running: {
         title: "Running & Sprint",
         icon: "fas fa-running",
-        description: "Latihan kardio efisien untuk membakar lemak, meningkatkan stamina, dan kesehatan jantung.",
+        img: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=800&q=80",
+        description: "Tracking GPS akurat untuk mengukur jarak, pace, zona detak jantung, dan pembakaran kalori.",
         benefits: [
-          "<strong>Pembakaran Lemak Efektif:</strong> Membakar kalori dalam jumlah tinggi dalam waktu singkat.",
-          "<strong>Pelepasan Endorfin:</strong> Memicu fenomena <i>Runner's High</i> untuk mood yang lebih positif.",
-          "<strong>Ketahanan Otot:</strong> Memperkuat daya tahan otot inti (core) dan tubuh bagian bawah."
+          "<strong>Pembakaran Lemak:</strong> Efisiensi pembakaran energi kardiovaskular tinggi.",
+          "<strong>Pelepasan Endorfin:</strong> Meningkatkan mood dan konsentrasi melalui fenomena <i>Runner's High</i>.",
+          "<strong>Kekuatan Inti (Core):</strong> Memperkuat ketahanan fisik secara menyeluruh."
         ]
       },
       yoga: {
         title: "Yoga & Mindfulness",
         icon: "fas fa-spa",
-        description: "Kombinasi peregangan dinamis, keseimbangan tubuh, dan kontrol pernapasan untuk relaksasi.",
+        img: "https://images.unsplash.com/photo-1545205597-3d9d02c29597?auto=format&fit=crop&w=800&q=80",
+        description: "Sesi panduan peregangan dan meditasi untuk keseimbangan fisik serta ketenangan pikiran.",
         benefits: [
-          "<strong>Fleksibilitas & Mobilitas:</strong> Mencegah cedera saat melakukan latihan beban berat di gym.",
-          "<strong>Keseimbangan Hormon:</strong> Menurunkan tingkat stres dan meningkatkan kualitas tidur malam.",
-          "<strong>Postur Tubuh:</strong> Memperbaiki postur tulang belakang akibat terlalu lama duduk."
+          "<strong>Mobilitas Sendi:</strong> Mencegah risiko cedera saat melakukan latihan berat.",
+          "<strong>Postur Tubuh:</strong> Memperbaiki kelengkungan tulang belakang dan keseimbangan.",
+          "<strong>Kualitas Tidur:</strong> Menenangkan sistem saraf pusat untuk pemulihan optimal."
         ]
       }
     };
@@ -171,17 +115,29 @@
       const data = categoryData[category];
       if(!data) return;
 
-      let benefitsHTML = data.benefits.map(b => `<li class="text-sm text-gray-300 mb-2 flex items-start"><i class="fas fa-check-circle accent-color mr-2 mt-1"></i><span>${b}</span></li>`).join('');
+      let benefitsHTML = data.benefits.map(b => `
+        <li class="text-sm text-gray-300 flex items-start space-x-3">
+          <i class="fas fa-check-circle accent-color mt-1"></i>
+          <span>${b}</span>
+        </li>`).join('');
 
       document.getElementById('modalContent').innerHTML = `
-        <div class="flex items-center space-x-3 mb-4">
-          <i class="${data.icon} text-3xl accent-color"></i>
-          <h3 class="text-xl font-bold text-white">${data.title}</h3>
+        <div class="relative h-48 rounded-t-2xl overflow-hidden mb-6">
+          <img src="${data.img}" class="w-full h-full object-cover" alt="${data.title}" />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#0e1117] via-transparent to-transparent"></div>
+          <div class="absolute bottom-3 left-4 flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-xl bg-accent/20 border border-[#00e676] flex items-center justify-center">
+              <i class="${data.icon} text-lg accent-color"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white">${data.title}</h3>
+          </div>
         </div>
-        <p class="text-sm text-gray-400 mb-4">${data.description}</p>
-        <div class="border-t border-gray-800 pt-4">
-          <h4 class="text-sm font-bold text-white mb-3">Manfaat Kesehatan & Otot:</h4>
-          <ul>${benefitsHTML}</ul>
+        <div class="px-6 pb-6">
+          <p class="text-sm text-gray-400 mb-6 leading-relaxed">${data.description}</p>
+          <div class="border-t border-gray-800 pt-4">
+            <h4 class="text-xs uppercase tracking-wider font-bold text-white mb-4 accent-color">Manfaat Kesehatan & Otot</h4>
+            <ul class="space-y-3">${benefitsHTML}</ul>
+          </div>
         </div>
       `;
 
@@ -192,5 +148,208 @@
       document.getElementById('infoModal').classList.add('hidden');
     }
   </script>
+</head>
+<body class="antialiased selection:bg-[#00e676] selection:text-black">
+
+  <div class="glow-effect"></div>
+
+  <!-- NAVBAR -->
+  <nav class="fixed top-0 w-full z-40 glass-card px-6 py-4 flex justify-between items-center border-b border-white/5">
+    <div class="flex items-center space-x-2">
+      <span class="text-2xl font-black tracking-widest text-white">NEX<span class="accent-color">ORA</span></span>
+    </div>
+    <a href="#download" class="bg-accent text-black font-extrabold px-6 py-2.5 rounded-full transition duration-300 hover:scale-105 shadow-lg shadow-[#00e676]/20 text-xs tracking-wider uppercase">
+      Get App
+    </a>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="pt-36 pb-20 px-6 max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center relative z-10">
+    <div class="text-center md:text-left">
+      <span class="inline-flex items-center space-x-2 text-xs uppercase tracking-widest font-semibold px-4 py-1.5 rounded-full border border-[#00e676]/40 bg-[#00e676]/10 accent-color mb-6">
+        <span class="w-2 h-2 rounded-full bg-accent animate-ping"></span>
+        <span>Next-Gen Fitness App</span>
+      </span>
+      <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white mb-6 leading-tight tracking-tight">
+        Train Smarter.<br/>
+        <span class="accent-color bg-clip-text text-transparent bg-gradient-to-r from-[#00e676] to-emerald-400">Move Further.</span><br/>
+        Live Better.
+      </h1>
+      <p class="text-gray-400 text-base sm:text-lg mb-8 leading-relaxed max-w-xl">
+        Platform kebugaran terintegrasi untuk melacak aktivitas fisik, nutrisi, tidur, hingga kesehatan mental dalam satu aplikasi modern.
+      </p>
+      
+      <!-- CTA BUTTONS -->
+      <div id="download" class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+        <a href="#" class="bg-accent text-black font-extrabold px-8 py-4 rounded-2xl flex items-center justify-center space-x-3 shadow-xl shadow-[#00e676]/20 transition duration-300 hover:-translate-y-1 hover:bg-[#00c853]">
+          <i class="fab fa-android text-2xl"></i>
+          <div class="text-left">
+            <div class="text-[10px] uppercase font-bold tracking-wider opacity-80">Download APK</div>
+            <div class="text-base font-extrabold leading-none">Android Version</div>
+          </div>
+        </a>
+        <div class="glass-card text-gray-400 font-medium px-8 py-4 rounded-2xl flex items-center justify-center space-x-3 opacity-50 cursor-not-allowed">
+          <i class="fab fa-apple text-2xl"></i>
+          <div class="text-left">
+            <div class="text-[10px] uppercase font-bold tracking-wider">iOS Version</div>
+            <div class="text-base font-extrabold leading-none">Coming Soon</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MOCKUP FRAME INTERAKTIF -->
+    <div class="relative flex justify-center">
+      <div class="w-72 sm:w-80 h-[560px] glass-card rounded-[40px] p-4 border-2 border-white/10 shadow-2xl relative overflow-hidden flex flex-col justify-between">
+        <!-- Status Bar -->
+        <div class="flex justify-between items-center text-xs text-gray-400 px-2 pt-1">
+          <span>09:41</span>
+          <div class="flex space-x-1 items-center">
+            <i class="fas fa-signal text-[10px]"></i>
+            <i class="fas fa-wifi text-[10px]"></i>
+            <i class="fas fa-battery-full text-[10px]"></i>
+          </div>
+        </div>
+        
+        <!-- App Header Mockup -->
+        <div class="my-4">
+          <div class="text-xs text-gray-400">Selamat Pagi,</div>
+          <div class="text-lg font-bold text-white flex justify-between items-center">
+            <span>Alex Rider</span>
+            <span class="text-xs px-2 py-0.5 rounded bg-accent/20 accent-color font-bold">PRO</span>
+          </div>
+        </div>
+
+        <!-- Metric Cards Mockup -->
+        <div class="space-y-3">
+          <div class="p-3 rounded-xl bg-white/5 border border-white/10 flex justify-between items-center">
+            <div>
+              <div class="text-[10px] text-gray-400">Langkah Harian</div>
+              <div class="text-base font-extrabold text-white">8,421 / <span class="text-gray-500 text-xs">10k</span></div>
+            </div>
+            <i class="fas fa-walking accent-color text-xl"></i>
+          </div>
+          <div class="p-3 rounded-xl bg-white/5 border border-white/10 flex justify-between items-center">
+            <div>
+              <div class="text-[10px] text-gray-400">Kalori Terbakar</div>
+              <div class="text-base font-extrabold text-white">642 <span class="text-xs font-normal text-gray-400">kcal</span></div>
+            </div>
+            <i class="fas fa-fire text-orange-500 text-xl"></i>
+          </div>
+          <div class="p-3 rounded-xl bg-white/5 border border-white/10 flex justify-between items-center">
+            <div>
+              <div class="text-[10px] text-gray-400">Durasi Aktif</div>
+              <div class="text-base font-extrabold text-white">48 <span class="text-xs font-normal text-gray-400">menit</span></div>
+            </div>
+            <i class="fas fa-stopwatch text-cyan-400 text-xl"></i>
+          </div>
+        </div>
+
+        <!-- Navigation Mockup -->
+        <div class="pt-4 border-t border-white/10 flex justify-around text-gray-500 text-sm">
+          <i class="fas fa-home accent-color"></i>
+          <i class="fas fa-chart-line"></i>
+          <i class="fas fa-compass"></i>
+          <i class="fas fa-user"></i>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KATEGORI OLAHRAGA -->
+  <section class="py-16 px-6 max-w-6xl mx-auto relative z-10">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-extrabold text-white mb-3">Pilihan Kategori Latihan</h2>
+      <p class="text-gray-400 text-sm max-w-lg mx-auto">Klik pada kartu kategori di bawah untuk mempelajari penjelasan fisiologis & manfaat pertumbuhan otot.</p>
+    </div>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-5">
+      
+      <!-- Card Gym -->
+      <div onclick="openModal('gym')" class="glass-card glass-card-hover rounded-2xl overflow-hidden cursor-pointer transition duration-300 transform hover:-translate-y-2 group">
+        <div class="h-32 overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Gym" />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#0e1117] via-transparent to-transparent"></div>
+        </div>
+        <div class="p-4 text-center">
+          <h3 class="font-bold text-white mb-1">Gym</h3>
+          <p class="text-[11px] text-gray-400 mb-3">Latihan Beban & Otot</p>
+          <span class="text-[11px] accent-color font-semibold group-hover:underline">Detail Info &rarr;</span>
+        </div>
+      </div>
+
+      <!-- Card Hiking -->
+      <div onclick="openModal('hiking')" class="glass-card glass-card-hover rounded-2xl overflow-hidden cursor-pointer transition duration-300 transform hover:-translate-y-2 group">
+        <div class="h-32 overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Hiking" />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#0e1117] via-transparent to-transparent"></div>
+        </div>
+        <div class="p-4 text-center">
+          <h3 class="font-bold text-white mb-1">Hiking</h3>
+          <p class="text-[11px] text-gray-400 mb-3">Stamina & Outdoor</p>
+          <span class="text-[11px] accent-color font-semibold group-hover:underline">Detail Info &rarr;</span>
+        </div>
+      </div>
+
+      <!-- Card Walking -->
+      <div onclick="openModal('walking')" class="glass-card glass-card-hover rounded-2xl overflow-hidden cursor-pointer transition duration-300 transform hover:-translate-y-2 group">
+        <div class="h-32 overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Walking" />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#0e1117] via-transparent to-transparent"></div>
+        </div>
+        <div class="p-4 text-center">
+          <h3 class="font-bold text-white mb-1">Walking</h3>
+          <p class="text-[11px] text-gray-400 mb-3">Mobilitas & Jantung</p>
+          <span class="text-[11px] accent-color font-semibold group-hover:underline">Detail Info &rarr;</span>
+        </div>
+      </div>
+
+      <!-- Card Running -->
+      <div onclick="openModal('running')" class="glass-card glass-card-hover rounded-2xl overflow-hidden cursor-pointer transition duration-300 transform hover:-translate-y-2 group">
+        <div class="h-32 overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Running" />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#0e1117] via-transparent to-transparent"></div>
+        </div>
+        <div class="p-4 text-center">
+          <h3 class="font-bold text-white mb-1">Running</h3>
+          <p class="text-[11px] text-gray-400 mb-3">Kardio & Pembakaran</p>
+          <span class="text-[11px] accent-color font-semibold group-hover:underline">Detail Info &rarr;</span>
+        </div>
+      </div>
+
+      <!-- Card Yoga -->
+      <div onclick="openModal('yoga')" class="glass-card glass-card-hover rounded-2xl overflow-hidden cursor-pointer transition duration-300 transform hover:-translate-y-2 group">
+        <div class="h-32 overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1545205597-3d9d02c29597?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Yoga" />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#0e1117] via-transparent to-transparent"></div>
+        </div>
+        <div class="p-4 text-center">
+          <h3 class="font-bold text-white mb-1">Yoga</h3>
+          <p class="text-[11px] text-gray-400 mb-3">Fleksibilitas & Mental</p>
+          <span class="text-[11px] accent-color font-semibold group-hover:underline">Detail Info &rarr;</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MODAL POPUP INTERAKTIF -->
+  <div id="infoModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+    <div class="absolute inset-0 z-0" onclick="closeModal()"></div>
+    
+    <div class="glass-card bg-[#0e1117] border border-gray-700/60 rounded-2xl max-w-lg w-full relative z-10 animate-modal overflow-hidden">
+      <button onclick="closeModal()" class="absolute top-4 right-4 z-20 w-8 h-8 rounded-full bg-black/50 text-gray-300 hover:text-white flex items-center justify-center transition">
+        &times;
+      </button>
+      
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="py-8 text-center text-gray-500 text-xs border-t border-gray-800/80 mt-16 relative z-10">
+    <p>&copy; 2026 Nexora App. Designed for Peak Performance.</p>
+  </footer>
+
 </body>
 </html>

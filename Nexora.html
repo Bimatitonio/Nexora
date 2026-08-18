@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexora - Train Smarter. Move Further. Live Better.</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    body { background-color: #0d0f12; color: #f3f4f6; font-family: system-ui, -apple-system, sans-serif; }
+    .accent-color { color: #00e676; }
+    .bg-accent { background-color: #00e676; }
+    .bg-accent:hover { background-color: #00c853; }
+    .glass-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); backdrop-filter: blur(12px); }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- NAVBAR -->
+  <nav class="fixed top-0 w-full z-50 glass-card px-6 py-4 flex justify-between items-center">
+    <div class="flex items-center space-x-2">
+      <span class="text-2xl font-black tracking-wider text-white">NEX<span class="accent-color">ORA</span></span>
+    </div>
+    <a href="#download" class="bg-accent text-black font-bold px-5 py-2 rounded-full transition text-sm">Get App</a>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="pt-32 pb-20 px-6 max-w-6xl mx-auto text-center flex flex-col items-center">
+    <span class="text-xs uppercase tracking-widest font-semibold px-3 py-1 rounded-full border border-[#00e676] accent-color mb-4">All-in-One Fitness & Lifestyle</span>
+    <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
+      Train Smarter.<br/><span class="accent-color">Move Further.</span> Live Better.
+    </h1>
+    <p class="text-gray-400 text-lg max-w-2xl mb-8">
+      Aplikasi kebugaran terintegrasi yang membantu kamu mengacak aktivitas, nutrisi, tidur, hingga kesehatan mental dalam satu platform modern.
+    </p>
+    
+    <!-- CTA BUTTONS -->
+    <div id="download" class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+      <a href="#" class="bg-accent text-black font-extrabold px-8 py-4 rounded-xl flex items-center justify-center space-x-3 shadow-lg shadow-[#00e676]/20 transition transform hover:-translate-y-1">
+        <i class="fab fa-android text-2xl"></i>
+        <div class="text-left">
+          <div class="text-xs uppercase font-medium">Download for</div>
+          <div class="text-base font-bold leading-none">Android APK</div>
+        </div>
+      </a>
+      <div class="glass-card text-gray-400 font-medium px-8 py-4 rounded-xl flex items-center justify-center space-x-3 cursor-not-allowed opacity-60">
+        <i class="fab fa-apple text-2xl"></i>
+        <div class="text-left">
+          <div class="text-xs uppercase">iOS Version</div>
+          <div class="text-base font-bold leading-none">Coming Soon</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KATEGORI OLAHRAGA -->
+  <section class="py-16 px-6 max-w-6xl mx-auto">
+    <h2 class="text-2xl font-bold text-center text-white mb-10">Pilihan Kategori Latihan</h2>
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+      <div class="glass-card p-6 rounded-2xl text-center hover:border-[#00e676] transition">
+        <i class="fas fa-dumbbell text-3xl accent-color mb-3"></i>
+        <h3 class="font-bold text-white">Gym</h3>
+        <p class="text-xs text-gray-400 mt-1">Chest, Strength, Compound</p>
+      </div>
+      <div class="glass-card p-6 rounded-2xl text-center hover:border-[#00e676] transition">
+        <i class="fas fa-mountain text-3xl accent-color mb-3"></i>
+        <h3 class="font-bold text-white">Hiking</h3>
+        <p class="text-xs text-gray-400 mt-1">Peta, Elevasi & Jalur</p>
+      </div>
+      <div class="glass-card p-6 rounded-2xl text-center hover:border-[#00e676] transition">
+        <i class="fas fa-walking text-3xl accent-color mb-3"></i>
+        <h3 class="font-bold text-white">Walking</h3>
+        <p class="text-xs text-gray-400 mt-1">Hitung Langkah & Kalori</p>
+      </div>
+      <div class="glass-card p-6 rounded-2xl text-center hover:border-[#00e676] transition">
+        <i class="fas fa-running text-3xl accent-color mb-3"></i>
+        <h3 class="font-bold text-white">Running</h3>
+        <p class="text-xs text-gray-400 mt-1">GPS Tracking & Pace</p>
+      </div>
+      <div class="glass-card p-6 rounded-2xl text-center hover:border-[#00e676] transition">
+        <i class="fas fa-spa text-3xl accent-color mb-3"></i>
+        <h3 class="font-bold text-white">Yoga</h3>
+        <p class="text-xs text-gray-400 mt-1">Meditasi & Stress Relief</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FITUR UTAMA -->
+  <section class="py-16 px-6 max-w-6xl mx-auto">
+    <h2 class="text-2xl font-bold text-center text-white mb-10">Fitur Utama Nexora</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="glass-card p-6 rounded-2xl">
+        <i class="fas fa-play-circle text-2xl accent-color mb-4"></i>
+        <h3 class="text-lg font-bold text-white mb-2">Video Tutorial Latihan</h3>
+        <p class="text-sm text-gray-400">Instruksi langkah demi langkah beserta catatan beban & repetisi agar latihan lebih aman dan efektif.</p>
+      </div>
+      <div class="glass-card p-6 rounded-2xl">
+        <i class="fas fa-bullseye text-2xl accent-color mb-4"></i>
+        <h3 class="text-lg font-bold text-white mb-2">Target & Tantangan</h3>
+        <p class="text-sm text-gray-400">Ikuti tantangan harian/mingguan seperti 10,000 Steps, 5K Run, atau 7 Days Yoga untuk meraih reward & badge.</p>
+      </div>
+      <div class="glass-card p-6 rounded-2xl">
+        <i class="fas fa-calculator text-2xl accent-color mb-4"></i>
+        <h3 class="text-lg font-bold text-white mb-2">Kalkulator Nutrisi & Makro</h3>
+        <p class="text-sm text-gray-400">Hitung asupan kalori, protein, karbohidrat, dan lemak secara akurat sesuai program tubuhmu.</p>
+      </div>
+      <div class="glass-card p-6 rounded-2xl">
+        <i class="fas fa-chart-line text-2xl accent-color mb-4"></i>
+        <h3 class="text-lg font-bold text-white mb-2">Statistik Progress</h3>
+        <p class="text-sm text-gray-400">Pantau grafik berat badan, massa otot, lemak tubuh, serta tren kebugaran mingguan dan bulanan.</p>
+      </div>
+      <div class="glass-card p-6 rounded-2xl">
+        <i class="fas fa-map-marked-alt text-2xl accent-color mb-4"></i>
+        <h3 class="text-lg font-bold text-white mb-2">GPS & Route Tracking</h3>
+        <p class="text-sm text-gray-400">Integrasi peta presisi untuk merekam jalur lari, bersepeda, hingga rute pendakian gunung secara real-time.</p>
+      </div>
+      <div class="glass-card p-6 rounded-2xl">
+        <i class="fas fa-robot text-2xl accent-color mb-4"></i>
+        <h3 class="text-lg font-bold text-white mb-2">AI Personal Coach</h3>
+        <p class="text-sm text-gray-400">Dapatkan rekomendasi program latihan dan pola makan khusus yang disesuaikan dengan kondisi tubuhmu.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-8 text-center text-gray-500 text-xs border-t border-gray-800">
+    <p>&copy; 2026 Nexora App. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
